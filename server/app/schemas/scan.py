@@ -8,3 +8,7 @@ class URLInputReq(BaseModel):
 class AIProbabilityRes(BaseModel):
     score: float
     reason: str
+
+
+class ScanErrorRes(BaseModel):
+    detail: str
