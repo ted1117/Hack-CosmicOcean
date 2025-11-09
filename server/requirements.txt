@@ -1,8 +1,0 @@
-flask
-flask-cors
-trafilatura
-openai
-ollama
-google-genai  # Google Gemini API Key를 위한 공식 SDK
-python-dotenv
-lxml_html_clean
