@@ -1,0 +1,48 @@
+[project]
+name = "server"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.121.1",
+    "google-genai>=1.49.0",
+    "openai>=2.7.1",
+    "ruff>=0.14.4",
+    "trafilatura>=2.0.0",
+    "uvicorn>=0.38.0",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+
+select = [
+    "E",  # pycodestyle (PEP 8)
+    "F",  # pyflakes
+    "W",  # warnings
+    "I",  # isort (import 정렬)
+    "C90",  # mccabe (복잡도)
+]
+
+ignore = [
+    "F401",  # 사용하지 않는 import 제거하지 않음
+]
+
+exclude = [
+    ".venv",
+    "__pycache__",
+    "migrations"
+]
+
+[tool.ruff.format]
+# Black 스타일 포매팅
+quote-style = "double"  # Black은 double quotes 사용
+indent-style = "space"
+line-ending = "auto"
+
+[tool.ruff.isort]
+# isort 스타일로 import 정렬
+known-first-party = ["app"]
+force-sort-within-sections = true
+split-on-trailing-comma = true
