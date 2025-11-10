@@ -7,7 +7,7 @@ from google.genai import types
 from app.core.config import settings
 from app.schemas.scan import AIModelRes, AIProbabilityRes
 from app.services.prompts import AI_CUE_SET, HUMAN_CUE_SET, SYSTEM_INSTRUCTION
-from app.utils.utils import filter_ques, sigmoid
+from app.utils.scoring import filter_ques, sigmoid
 
 logger = logging.getLogger(__name__)
 
