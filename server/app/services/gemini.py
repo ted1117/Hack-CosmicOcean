@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 client = genai.Client(api_key=settings.gemini_api_key)
 
 
-async def classify_with_gemini(fulltext: str) -> AIProbabilityRes | None:
+async def classify_with_gemini(fulltext: str) -> AIProbabilityRes:
     try:
         resp = await client.aio.models.generate_content(
             model=settings.gemini_model,
@@ -50,5 +50,9 @@ async def classify_with_gemini(fulltext: str) -> AIProbabilityRes | None:
                 score=-1, reason="OpenAI API 응답이 잘못되었습니다."
             )
 
-    except Exception:
-        pass
+    except json.JSONDecodeError as e:
+        logger.error(f"JSON 파싱 오류: {e}", exc_info=True)
+        return AIProbabilityRes(score=-1, reason="Gemini API 응답이 잘못되었습니다.")
+    except Exception as e:
+        logger.error(f"OpenAI 분류 중 오류 발생: {e}", exc_info=True)
+        return AIProbabilityRes(score=-1, reason="Gemini API 응답이 잘못되었습니다.")
