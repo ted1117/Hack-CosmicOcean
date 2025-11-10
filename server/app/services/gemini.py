@@ -24,7 +24,7 @@ class GeminiService(BaseAIService):
             "config": types.GenerateContentConfig(
                 system_instruction=SYSTEM_INSTRUCTION,
                 response_schema=AIModelRes,
-                temperature=settings.openai_temperature,
+                temperature=settings.temperature,
             ),
         }
 

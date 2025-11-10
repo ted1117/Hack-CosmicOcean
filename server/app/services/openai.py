@@ -26,7 +26,7 @@ class OpenAIService(BaseAIService):
         }
 
         if not settings.openai_model.startswith("gpt-5"):
-            params["temperature"] = settings.openai_temperature
+            params["temperature"] = settings.temperature
             params["top_p"] = 0
 
         return params

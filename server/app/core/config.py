@@ -7,11 +7,11 @@ class Settings(BaseSettings):
     user_agent: str = "AI-Smell-Bot/0.1"
     article_timeout_seconds: int = 8
     ai_provider: str = Field(default="openai")
+    temperature: float = Field(default=0.0, description="AI temperature")
 
     # OpenAI 설정
     openai_api_key: str
     openai_model: str = Field(default="gpt-4o-mini", description="기본 OpenAI 모델")
-    openai_temperature: float = 0.0
 
     # Gemini 설정
     gemini_api_key: str
