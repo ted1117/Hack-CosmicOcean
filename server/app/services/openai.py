@@ -18,16 +18,16 @@ class OpenAIService(BaseAIService):
 
     def _request_params(self, fulltext: str) -> dict[str, Any]:
         params = {
-            "models": settings.openai_model,
+            "model": settings.openai_model,
             "input": [
                 {"role": "system", "content": SYSTEM_INSTRUCTION},
                 {"role": "user", "content": fulltext},
             ],
-            "top_p": 0,
         }
 
         if not settings.openai_model.startswith("gpt-5"):
             params["temperature"] = settings.openai_temperature
+            params["top_p"] = 0
 
         return params
 
