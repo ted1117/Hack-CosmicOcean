@@ -4,4 +4,4 @@ from app.api.v1.endpoints.scan import router
 
 app = FastAPI(title="AI Smell")
 
-app.include_router(router, prefix="api/v1")
+app.include_router(router, prefix="/api/v1")
