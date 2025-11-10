@@ -1,5 +1,6 @@
 import json
 import logging
+from typing import Any
 
 from google import genai
 from google.genai import types
@@ -16,16 +17,23 @@ class GeminiService(BaseAIService):
     def __init__(self, client: genai.Client) -> None:
         self.client = client
 
+    def _request_params(self, fulltext: str) -> dict[str, Any]:
+        params = {
+            "model": settings.gemini_model,
+            "contents": fulltext,
+            "config": types.GenerateContentConfig(
+                system_instruction=SYSTEM_INSTRUCTION,
+                response_schema=AIModelRes,
+                temperature=settings.openai_temperature,
+            ),
+        }
+
+        return params
+
     async def classify(self, fulltext: str) -> AIProbabilityRes:
         try:
             resp = await self.client.aio.models.generate_content(
-                model=settings.gemini_model,
-                contents=fulltext,
-                config=types.GenerateContentConfig(
-                    system_instruction=SYSTEM_INSTRUCTION,
-                    response_schema=AIModelRes,
-                    temperature=settings.openai_temperature,
-                ),
+                **self._request_params(fulltext)
             )
 
             payload = json.loads(resp.text or "")
