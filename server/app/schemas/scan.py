@@ -12,3 +12,9 @@ class AIProbabilityRes(BaseModel):
 
 class ScanErrorRes(BaseModel):
     detail: str
+
+
+class AIModelRes(BaseModel):
+    label: str
+    cues: list[str]
+    reason: str
