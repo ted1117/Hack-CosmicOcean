@@ -14,6 +14,7 @@ class Settings(BaseSettings):
 
     # Gemini 설정
     gemini_api_key: str
+    gemini_model: str = Field(default="gemini-2.5-pro", description="기존 Gemini 모델")
 
     model_config = SettingsConfigDict(env_file=".env")
 
