@@ -1,9 +1,11 @@
 import logging
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status
 
+from app.api.v1.deps_ai import AIService, get_ai_service
 from app.schemas.scan import AIProbabilityRes, ScanErrorRes, URLInputReq
 from app.services.extractor import extract_article
+from app.services.gemini import classify_with_gemini
 from app.services.openai import classify_with_openai
 
 router = APIRouter()
@@ -25,7 +27,9 @@ logger = logging.getLogger(__name__)
         },
     },
 )
-async def get_ai_probability_from_url(req: URLInputReq) -> AIProbabilityRes:
+async def get_ai_probability_from_url(
+    req: URLInputReq, model_name: AIService = Depends(get_ai_service)
+) -> AIProbabilityRes:
     url = str(req.url)
 
     try:
@@ -46,7 +50,8 @@ async def get_ai_probability_from_url(req: URLInputReq) -> AIProbabilityRes:
         )
 
     try:
-        result = await classify_with_openai(fulltext)
+        func = model_name
+        result = await func(fulltext)
     except HTTPException:
         raise
     except Exception as exc:

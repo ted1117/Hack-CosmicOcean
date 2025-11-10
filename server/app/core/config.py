@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     # 기본 설정
     user_agent: str = "AI-Smell-Bot/0.1"
     article_timeout_seconds: int = 8
+    ai_provider: str = Field(default="openai")
 
     # OpenAI 설정
     openai_api_key: str
